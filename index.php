@@ -10,13 +10,17 @@
 <meta name="description" content="">
 </head>
 <?php
-if ($_POST['Text']==null) {
-	if ($_GET['Text']!=null) {
-		$_POST['Text']=$_GET['Text'];
-		if ($_POST['Encrypter']==null) {
-		$_POST['Encrypter']="100"; } }
-	if ($_GET['Text']==null) {
-		$_POST['Text']="Cool Dude 2k"; } }
+if ($_POST['Text'] == null) {
+    if ($_GET['Text'] != null) {
+        $_POST['Text'] = $_GET['Text'];
+        if ($_POST['Encrypter'] == null) {
+            $_POST['Encrypter'] = "100";
+        }
+    }
+    if ($_GET['Text'] == null) {
+        $_POST['Text'] = "Cool Dude 2k";
+    }
+}
 ?>
 <body>
 <form method="post" action="?">
@@ -45,55 +49,77 @@ if ($_POST['Text']==null) {
 <input type="reset" name="Reset" value="Reset Text"><br />
 </form>
 <?php
-if ($_POST['Text']!=null) {
-require_once('Functions.php');
-$_POST['OldText'] = $_POST['Text'];
-if($_POST['EncodeData']!="none"&&$_POST['Encrypter']=="500") {
-	if($_POST['EncodeData']=="base64") {
-		$_POST['Text'] = base64_decode($_POST['Text']); }
-	if($_POST['EncodeData']=="urlencode") {
-		$_POST['Text'] = urldecode($_POST['Text']); } }
-if($_POST['ZipData']!="none"&&$_POST['Encrypter']=="500") {
-	if($_POST['ZipData']=="deflate") {
-		$_POST['Text'] = gzinflate($_POST['Text']); }
-	if($_POST['ZipData']=="zlib") {
-		$_POST['Text'] = gzuncompress($_POST['Text']); }
-	if($_POST['ZipData']=="bzip") {
-		$_POST['Text'] = bzdecompress($_POST['Text']); } }
-if ($_POST['Encrypter']=="100") {
-$_POST['Text'] = GM2k_Encrypt1($_POST['Text']);	}
-if ($_POST['Encrypter']=="150") {
-$_POST['Text'] = GM2k_Encrypt1Old($_POST['Text']);	}
-if ($_POST['Encrypter']=="200") {
-$_POST['Text'] = GM2k_Encrypt2($_POST['Text']);	}
-if ($_POST['Encrypter']=="250") {
-$_POST['Text'] = GM2k_Encrypt2Old($_POST['Text']);	}
-if ($_POST['Encrypter']=="300") {
-$_POST['Text'] = GM2k_Encrypt1(GM2k_Encrypt2($_POST['Text']));	}
-if ($_POST['Encrypter']=="400") {
-$_POST['Text'] = GM2k_Encrypt3($_POST['Text']);	}
-if ($_POST['Encrypter']=="500") {
-$_POST['Text'] = GM2k_Decrypt($_POST['Text']);	}
-$HTML1 = array("<", ">");
-$HTML2 = array("&lt;", "&gt;");
-$_POST['Text'] = str_replace($HTML1, $HTML2, $_POST['Text']);
-$HTML1 = array("&lt;br&gt;", "&lt;br /&gt;");
-$HTML2 = array("<br />", "<br />");
-$_POST['Text'] = str_replace($HTML1, $HTML2, $_POST['Text']);
-$_POST['Text'] = nl2br($_POST['Text']);
-if($_POST['ZipData']!="none"&&$_POST['Encrypter']!="500") {
-	if($_POST['ZipData']=="deflate") {
-		$_POST['Text'] = gzdeflate($_POST['Text']); }
-	if($_POST['ZipData']=="zlib") {
-		$_POST['Text'] = gzcompress($_POST['Text']); }
-	if($_POST['ZipData']=="bzip") {
-		$_POST['Text'] = bzcompress($_POST['Text']); } }
-if($_POST['EncodeData']!="none"&&$_POST['Encrypter']!="500") {
-	if($_POST['EncodeData']=="base64") {
-		$_POST['Text'] = base64_encode($_POST['Text']); }
-	if($_POST['EncodeData']=="urlencode") {
-		$_POST['Text'] = urlencode($_POST['Text']); } }
-echo $_POST['Text']; }
+if ($_POST['Text'] != null) {
+    require_once('Functions.php');
+    $_POST['OldText'] = $_POST['Text'];
+    if ($_POST['EncodeData'] != "none" && $_POST['Encrypter'] == "500") {
+        if ($_POST['EncodeData'] == "base64") {
+            $_POST['Text'] = base64_decode($_POST['Text']);
+        }
+        if ($_POST['EncodeData'] == "urlencode") {
+            $_POST['Text'] = urldecode($_POST['Text']);
+        }
+    }
+    if ($_POST['ZipData'] != "none" && $_POST['Encrypter'] == "500") {
+        if ($_POST['ZipData'] == "deflate") {
+            $_POST['Text'] = gzinflate($_POST['Text']);
+        }
+        if ($_POST['ZipData'] == "zlib") {
+            $_POST['Text'] = gzuncompress($_POST['Text']);
+        }
+        if ($_POST['ZipData'] == "bzip") {
+            $_POST['Text'] = bzdecompress($_POST['Text']);
+        }
+    }
+    if ($_POST['Encrypter'] == "100") {
+        $_POST['Text'] = GM2k_Encrypt1($_POST['Text']);
+    }
+    if ($_POST['Encrypter'] == "150") {
+        $_POST['Text'] = GM2k_Encrypt1Old($_POST['Text']);
+    }
+    if ($_POST['Encrypter'] == "200") {
+        $_POST['Text'] = GM2k_Encrypt2($_POST['Text']);
+    }
+    if ($_POST['Encrypter'] == "250") {
+        $_POST['Text'] = GM2k_Encrypt2Old($_POST['Text']);
+    }
+    if ($_POST['Encrypter'] == "300") {
+        $_POST['Text'] = GM2k_Encrypt1(GM2k_Encrypt2($_POST['Text']));
+    }
+    if ($_POST['Encrypter'] == "400") {
+        $_POST['Text'] = GM2k_Encrypt3($_POST['Text']);
+    }
+    if ($_POST['Encrypter'] == "500") {
+        $_POST['Text'] = GM2k_Decrypt($_POST['Text']);
+    }
+    $HTML1 = array("<", ">");
+    $HTML2 = array("&lt;", "&gt;");
+    $_POST['Text'] = str_replace($HTML1, $HTML2, $_POST['Text']);
+    $HTML1 = array("&lt;br&gt;", "&lt;br /&gt;");
+    $HTML2 = array("<br />", "<br />");
+    $_POST['Text'] = str_replace($HTML1, $HTML2, $_POST['Text']);
+    $_POST['Text'] = nl2br($_POST['Text']);
+    if ($_POST['ZipData'] != "none" && $_POST['Encrypter'] != "500") {
+        if ($_POST['ZipData'] == "deflate") {
+            $_POST['Text'] = gzdeflate($_POST['Text']);
+        }
+        if ($_POST['ZipData'] == "zlib") {
+            $_POST['Text'] = gzcompress($_POST['Text']);
+        }
+        if ($_POST['ZipData'] == "bzip") {
+            $_POST['Text'] = bzcompress($_POST['Text']);
+        }
+    }
+    if ($_POST['EncodeData'] != "none" && $_POST['Encrypter'] != "500") {
+        if ($_POST['EncodeData'] == "base64") {
+            $_POST['Text'] = base64_encode($_POST['Text']);
+        }
+        if ($_POST['EncodeData'] == "urlencode") {
+            $_POST['Text'] = urlencode($_POST['Text']);
+        }
+    }
+    echo $_POST['Text'];
+}
 ?>
 </body>
 <script type="text/javascript">
